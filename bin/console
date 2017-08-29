@@ -1,9 +1,9 @@
 #!/usr/bin/env php
 <?php
 
-use App\Kernel;
 use Symfony\Bundle\FrameworkBundle\Console\Application;
 use Symfony\Component\Console\Input\ArgvInput;
+use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Debug\Debug;
 use Symfony\Component\Dotenv\Dotenv;
 
@@ -23,11 +23,16 @@ if (!isset($_SERVER['APP_ENV'])) {
 $input = new ArgvInput();
 $env = $input->getParameterOption(['--env', '-e'], $_SERVER['APP_ENV'] ?? 'dev');
 $debug = ($_SERVER['APP_DEBUG'] ?? true) !== '0' && !$input->hasParameterOption(['--no-debug', '']);
+$name = $input->getParameterOption(['--kernel', '-k'], $_SERVER['APP_NAME'] ?? 'app');
 
 if ($debug && class_exists(Debug::class)) {
     Debug::enable();
 }
 
-$kernel = new Kernel($env, $debug);
+$kernel = new \VirtualKernel($env, $debug, $name);
 $application = new Application($kernel);
+$application
+    ->getDefinition()
+    ->addOption(new InputOption('--kernel', '-k', InputOption::VALUE_REQUIRED, 'The Kernel name', $kernel->getName()))
+;
 $application->run($input);
