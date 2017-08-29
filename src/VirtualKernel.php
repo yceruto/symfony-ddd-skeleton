@@ -63,6 +63,9 @@ class VirtualKernel extends Kernel
             $loader->load($confDir.'/packages/'.$this->environment.'/**/*'.self::CONFIG_EXTS, 'glob');
         }
         $loader->load($confDir.'/services'.self::CONFIG_EXTS, 'glob');
+        if (is_dir($confDir.'/'.$this->environment)) {
+            $loader->load($confDir.'/'.$this->environment.'/**/*'.self::CONFIG_EXTS, 'glob');
+        }
     }
 
     private function doConfigureRoutes(RouteCollectionBuilder $routes, string $name): void
