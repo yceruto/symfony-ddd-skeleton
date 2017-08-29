@@ -91,3 +91,8 @@ With three simple steps you should be able to add new vKernel/applications to th
  3. Add to `composer.json` autoload/autoload-dev sections the new PSR-4 namespaces for `src/<Name>/` and `tests/<Name>` directories and update the autoload config file.
 
 Check the new application running `bin/console about -k=<name>`.
+
+License
+-------
+
+This software is published under the [MIT License](LICENSE)
