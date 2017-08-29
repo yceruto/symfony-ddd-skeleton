@@ -58,7 +58,7 @@ The `tests` directory is pretty similar to the `src` directory, just update your
         }
     },
 
-Again, run `composer dump-autoload` to re-generate the autoload config.
+Run `composer dump-autoload` to re-generate the autoload config.
     
 Here, you might need create a `<Name>WebTestCase` class per application in order to execute all tests together.
 
