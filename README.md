@@ -53,7 +53,7 @@ The `tests` directory is pretty similar to the `src` directory, just update your
 
     "autoload-dev": {
         "psr-4": {
-            "App\\Tests\\": "tests/Admin/",
+            "App\\Tests\\": "tests/App/",
             "Api\\Tests\\": "tests/Api/"
         }
     },
