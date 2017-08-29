@@ -39,3 +39,9 @@
 
 # Backup entities generated with doctrine:generate:entities command
 **/Entity/*~
+###> symfony/framework-bundle ###
+.env
+/public/bundles/
+/var/
+/vendor/
+###< symfony/framework-bundle ###
