@@ -31,7 +31,7 @@ class VirtualKernel extends Kernel
 
     public function registerBundles(): iterable
     {
-        $commonBundles = require dirname(__DIR__).'/config/common/bundles.php';
+        $commonBundles = require dirname(__DIR__).'/config/bundles.php';
         $kernelBundles = require dirname(__DIR__).'/config/'.$this->name.'/bundles.php';
 
         foreach (array_merge($commonBundles, $kernelBundles) as $class => $envs) {
@@ -43,17 +43,17 @@ class VirtualKernel extends Kernel
 
     protected function configureContainer(ContainerBuilder $container, LoaderInterface $loader): void
     {
-        $this->doConfigureContainer($container, $loader, 'common');
+        $this->doConfigureContainer($container, $loader);
         $this->doConfigureContainer($container, $loader, $this->name);
     }
 
     protected function configureRoutes(RouteCollectionBuilder $routes): void
     {
-        $this->doConfigureRoutes($routes, 'common');
+        $this->doConfigureRoutes($routes);
         $this->doConfigureRoutes($routes, $this->name);
     }
 
-    private function doConfigureContainer(ContainerBuilder $container, LoaderInterface $loader, string $name): void
+    private function doConfigureContainer(ContainerBuilder $container, LoaderInterface $loader, string $name = null): void
     {
         $confDir = dirname(__DIR__).'/config/'.$name;
         if (is_dir($confDir.'/packages/')) {
@@ -68,7 +68,7 @@ class VirtualKernel extends Kernel
         }
     }
 
-    private function doConfigureRoutes(RouteCollectionBuilder $routes, string $name): void
+    private function doConfigureRoutes(RouteCollectionBuilder $routes, string $name = null): void
     {
         $confDir = dirname(__DIR__).'/config/'.$name;
         if (is_dir($confDir.'/routes/')) {
