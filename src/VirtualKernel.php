@@ -14,9 +14,9 @@ class VirtualKernel extends Kernel
 
     public function __construct($environment, $debug, $name)
     {
-        $this->name = $name;
-
         parent::__construct($environment, $debug);
+
+        $this->name = $name;
     }
 
     public function getCacheDir(): string
