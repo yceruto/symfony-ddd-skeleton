@@ -8,7 +8,7 @@ In short, each kernel name corresponds to one application.
 
 ### Application-based Configuration
 
-First, you need replicate the structure of one application for `config`, `src`, `var` directories and create additionally a `common` config directory for shared bundles and configuration.
+First, you need replicate the structure of one application for `config`, `src`, `var` directories.
 
 Making use of the `Kernel::$name` property you can stand out the application to run with dedicated project files.
 
