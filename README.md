@@ -8,7 +8,7 @@ In short, each kernel name corresponds to one application.
 
 ### Application-based Configuration
 
-First, you need to replicate the structure of one application for `config`, `src`, `var` directories. It should look like this:
+You need to replicate the structure of one application for `config`, `src`, `var` directories. It should look like this:
 
     ├── config/
     │   ├── admin/
@@ -41,7 +41,7 @@ Next, making use of the `Kernel::$name` property you can stand out the applicati
  * `<name><Env>DebugProjectContainerUrlGenerator*`
  * `<name><Env>DebugProjectContainerUrlMatcher*`
  
-This will be the key of the performance as each application has by definition its own DI container, routes and configuration.
+This will be the key of the performance as each application has by definition its own DI container file, routes and configuration.
 
 ### Keeping one entry point for all applications
 
