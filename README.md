@@ -8,9 +8,39 @@ In short, each kernel name corresponds to one application.
 
 ### Application-based Configuration
 
-First, you need replicate the structure of one application for `config`, `src`, `var` directories.
+First, you need to replicate the structure of one application for `config`, `src`, `var` directories. It should look like this:
 
-Making use of the `Kernel::$name` property you can stand out the application to run with dedicated project files.
+    ├── config/
+    │   ├── admin/
+    │   │   ├── packages/
+    │   │   ├── bundles.php
+    │   │   ├── routes.yaml
+    │   │   ├── security.yaml
+    │   │   └── services.yaml
+    │   ├── api/
+    │   ├── site/
+    │   └── bundles.php
+    ├── src/
+    │   ├── Admin/
+    │   ├── Api/
+    │   ├── Site/
+    │   └── VirtualKernel.php
+    ├── var/
+    │   ├── cache/
+    │   │   ├── admin/
+    │   │   │   └── dev/
+    │   │   │   └── prod/
+    │   │   ├── api/
+    │   │   └── site/
+    │   └── logs/
+
+Next, making use of the `Kernel::$name` property you can stand out the application to run and dedicated project files (`var/cache/<name>/<env>/*`):
+
+ * `<name><Env>DebugProjectContainer*`
+ * `<name><Env>DebugProjectContainerUrlGenerator*`
+ * `<name><Env>DebugProjectContainerUrlMatcher*`
+ 
+This will be the key of the performance as each application has by definition its own DI container, routes and configuration.
 
 ### Keeping one entry point for all applications
 
