@@ -59,11 +59,11 @@ For now, you can play with your applications and PHP's built-in Web server prefi
     ├── bin/
     │   └── console.php
 
-Use `--kernel` option to run any command different to default one:
+Use `--kernel`, `-k` option to run any command:
 
     $ bin/console about -k=api
     
-Or if you prefer ignore the previous option and use environment variables:
+Or if you prefer use environment variables:
 
     $ export APP_NAME=api
     $ bin/console about                         # api application
