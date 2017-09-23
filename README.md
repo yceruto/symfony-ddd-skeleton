@@ -19,6 +19,7 @@ First, you need to replicate the structure of one application for `config`, `src
     │   │   └── services.yaml
     │   ├── api/
     │   ├── site/
+    │   ├── packages/
     │   └── bundles.php
     ├── src/
     │   ├── Admin/

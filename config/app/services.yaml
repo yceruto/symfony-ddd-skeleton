@@ -25,5 +25,4 @@ services:
     # and have a tag that allows actions to type-hint services
     App\Controller\:
         resource: '../../src/App/Controller'
-        public: true
         tags: ['controller.service_arguments']
