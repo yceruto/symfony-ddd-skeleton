@@ -50,7 +50,7 @@ This will be the key of the performance as each application has by definition it
 Following the same filosofy of Symfony 4, whereas environment variables decides which development environment and debug mode should be used to run your application, you could use `APP_NAME` environment variable to set the application to execute. 
 For now, you can play with your applications and PHP's built-in Web server prefixing the new application environment variable:
 
-    $ APP_NAME=app php -S 127.0.0.1:8000 -t public
+    $ APP_NAME=admin php -S 127.0.0.1:8000 -t public
     $ APP_NAME=api php -S 127.0.0.1:8001 -t public   
 
 ### Executing commands per application
@@ -58,7 +58,7 @@ For now, you can play with your applications and PHP's built-in Web server prefi
     ├── bin/
     │   └── console.php
 
-Use `--kernel` option to run any command different to default one (`app`).
+Use `--kernel` option to run any command different to default one:
 
     $ bin/console about -k=api
     
@@ -68,22 +68,22 @@ Or if you prefer ignore the previous option and use environment variables:
     $ bin/console about                         # api application
     $ bin/console debug:router                  # api application
     $
-    $ APP_NAME=api bin/console debug:router     # api application
+    $ APP_NAME=admin bin/console debug:router   # admin application
 
 Also you can configure the default `APP_NAME` environment variable in your `.env` file. 
 
 ### Running tests per application
 
     ├── tests/
-    │   ├── App/
-    │   │   └── AppWebTestCase.php
+    │   ├── Admin/
+    │   │   └── AdminWebTestCase.php
     │   ├── Api/
 
 The `tests` directory is pretty similar to the `src` directory, just update your `composer.json` to map each directory `tests/<Name>/` with its PSR-4 namespace:
 
     "autoload-dev": {
         "psr-4": {
-            "App\\Tests\\": "tests/App/",
+            "Admin\\Tests\\": "tests/Admin/",
             "Api\\Tests\\": "tests/Api/"
         }
     },
@@ -96,10 +96,10 @@ Here, you might need create a `<Name>WebTestCase` class per application in order
 
 Set the environment variable `APP_NAME` for each vhost config in your production server and development machine if prefer:
 
-    <VirtualHost company.com:80>
+    <VirtualHost admin.company.com:80>
         # ...
         
-        SetEnv APP_NAME app
+        SetEnv APP_NAME admin
         
         # ...
     </VirtualHost>
