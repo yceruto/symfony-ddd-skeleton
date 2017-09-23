@@ -33,6 +33,6 @@ $kernel = new \VirtualKernel($env, $debug, $name);
 $application = new Application($kernel);
 $application
     ->getDefinition()
-    ->addOption(new InputOption('--kernel', '-k', InputOption::VALUE_REQUIRED, 'The Kernel name', $kernel->getName()))
+    ->addOption(new InputOption('--kernel', '-k', InputOption::VALUE_REQUIRED, 'The Kernel name', $name))
 ;
 $application->run($input);
