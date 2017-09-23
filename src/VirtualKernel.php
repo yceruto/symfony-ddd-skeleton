@@ -26,7 +26,7 @@ class VirtualKernel extends Kernel
 
     public function getLogDir(): string
     {
-        return dirname(__DIR__).'/var/logs/'.$this->name;
+        return dirname(__DIR__).'/var/log/'.$this->name;
     }
 
     public function registerBundles(): iterable
