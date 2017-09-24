@@ -10,7 +10,7 @@ class VirtualKernel extends Kernel
 {
     use MicroKernelTrait;
 
-    private const CONFIG_EXTS = '.{php,yaml}';
+    const CONFIG_EXTS = '.{php,yaml}';
 
     public function __construct($environment, $debug, $name)
     {
