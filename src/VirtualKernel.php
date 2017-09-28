@@ -29,6 +29,18 @@ class VirtualKernel extends Kernel
         return dirname(__DIR__).'/var/log/'.$this->name;
     }
 
+    public function serialize()
+    {
+        return serialize(array($this->environment, $this->debug, $this->name));
+    }
+
+    public function unserialize($data)
+    {
+        list($environment, $debug, $name) = unserialize($data, array('allowed_classes' => false));
+
+        $this->__construct($environment, $debug, $name);
+    }
+
     public function registerBundles(): iterable
     {
         $commonBundles = require dirname(__DIR__).'/config/bundles.php';
