@@ -29,7 +29,7 @@ You need to replicate the structure of one application for `config`, `src`, `var
     ├── var/
     │   ├── cache/
     │   │   ├── admin/
-    │   │   │   └── dev/
+    │   │   │   ├── dev/
     │   │   │   └── prod/
     │   │   ├── api/
     │   │   └── site/
@@ -59,7 +59,7 @@ For now, you can play with your applications and PHP's built-in Web server prefi
     ├── bin/
     │   └── console.php
 
-Use `--kernel`, `-k` option to run any command:
+Use `--kernel`, `-k` option to run any command for one specific app:
 
     $ bin/console about -k=api
     

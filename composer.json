@@ -3,13 +3,13 @@
     "license": "MIT",
     "require": {
         "php": "^7.1.3",
-        "symfony/console": "^3.3",
+        "symfony/console": "^4.0",
         "symfony/flex": "^1.0",
-        "symfony/framework-bundle": "^3.3",
-        "symfony/yaml": "^3.3"
+        "symfony/framework-bundle": "^4.0",
+        "symfony/yaml": "^4.0"
     },
     "require-dev": {
-        "symfony/dotenv": "^3.3"
+        "symfony/dotenv": "^4.0"
     },
     "config": {
         "preferred-install": {
@@ -36,9 +36,13 @@
             "assets:install --symlink --relative %PUBLIC_DIR%": "symfony-cmd"
         }
     },
+    "conflict": {
+        "symfony/symfony": "*"
+    },
+    "minimum-stability": "rc",
     "extra": {
         "symfony": {
-            "id": "01BRNTGGZ1S93YWP4FDZVCVPCX",
+            "id": "01BZMG6C8842Y1A8Q3C167TBXK",
             "allow-contrib": false
         }
     }

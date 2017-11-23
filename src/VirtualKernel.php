@@ -10,7 +10,7 @@ class VirtualKernel extends Kernel
 {
     use MicroKernelTrait;
 
-    const CONFIG_EXTS = '.{php,yaml}';
+    private const CONFIG_EXTS = '.{php,xml,yaml,yml}';
 
     public function __construct($environment, $debug, $name)
     {
@@ -21,12 +21,12 @@ class VirtualKernel extends Kernel
 
     public function getCacheDir(): string
     {
-        return dirname(__DIR__).'/var/cache/'.$this->name.'/'.$this->environment;
+        return $this->getProjectDir().'/var/cache/'.$this->name.'/'.$this->environment;
     }
 
     public function getLogDir(): string
     {
-        return dirname(__DIR__).'/var/log/'.$this->name;
+        return $this->getProjectDir().'/var/log/'.$this->name;
     }
 
     public function serialize()
@@ -36,15 +36,15 @@ class VirtualKernel extends Kernel
 
     public function unserialize($data)
     {
-        list($environment, $debug, $name) = unserialize($data, array('allowed_classes' => false));
+        [$environment, $debug, $name] = unserialize($data, array('allowed_classes' => false));
 
         $this->__construct($environment, $debug, $name);
     }
 
     public function registerBundles(): iterable
     {
-        $commonBundles = require dirname(__DIR__).'/config/bundles.php';
-        $kernelBundles = require dirname(__DIR__).'/config/'.$this->name.'/bundles.php';
+        $commonBundles = require $this->getProjectDir().'/config/bundles.php';
+        $kernelBundles = require $this->getProjectDir().'/config/'.$this->name.'/bundles.php';
 
         foreach (array_merge($commonBundles, $kernelBundles) as $class => $envs) {
             if (isset($envs['all']) || isset($envs[$this->environment])) {
@@ -55,6 +55,8 @@ class VirtualKernel extends Kernel
 
     protected function configureContainer(ContainerBuilder $container, LoaderInterface $loader): void
     {
+        $container->setParameter('container.dumper.inline_class_loader', true);
+
         $this->doConfigureContainer($container, $loader);
         $this->doConfigureContainer($container, $loader, $this->name);
     }
@@ -67,7 +69,7 @@ class VirtualKernel extends Kernel
 
     private function doConfigureContainer(ContainerBuilder $container, LoaderInterface $loader, string $name = null): void
     {
-        $confDir = dirname(__DIR__).'/config/'.$name;
+        $confDir = $this->getProjectDir().'/config/'.$name;
         if (is_dir($confDir.'/packages/')) {
             $loader->load($confDir.'/packages/*'.self::CONFIG_EXTS, 'glob');
         }
@@ -82,7 +84,7 @@ class VirtualKernel extends Kernel
 
     private function doConfigureRoutes(RouteCollectionBuilder $routes, string $name = null): void
     {
-        $confDir = dirname(__DIR__).'/config/'.$name;
+        $confDir = $this->getProjectDir().'/config/'.$name;
         if (is_dir($confDir.'/routes/')) {
             $routes->import($confDir.'/routes/*'.self::CONFIG_EXTS, '/', 'glob');
         }
