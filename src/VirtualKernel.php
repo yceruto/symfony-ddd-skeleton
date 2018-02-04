@@ -70,27 +70,17 @@ class VirtualKernel extends Kernel
     private function doConfigureContainer(ContainerBuilder $container, LoaderInterface $loader, string $name = null): void
     {
         $confDir = $this->getProjectDir().'/config/'.$name;
-        if (is_dir($confDir.'/packages/')) {
-            $loader->load($confDir.'/packages/*'.self::CONFIG_EXTS, 'glob');
-        }
-        if (is_dir($confDir.'/packages/'.$this->environment)) {
-            $loader->load($confDir.'/packages/'.$this->environment.'/**/*'.self::CONFIG_EXTS, 'glob');
-        }
-        $loader->load($confDir.'/services'.self::CONFIG_EXTS, 'glob');
-        if (is_dir($confDir.'/'.$this->environment)) {
-            $loader->load($confDir.'/'.$this->environment.'/**/*'.self::CONFIG_EXTS, 'glob');
-        }
+        $loader->load($confDir.'/{packages}/*'.self::CONFIG_EXTS, 'glob');
+        $loader->load($confDir.'/{packages}/'.$this->environment.'/**/*'.self::CONFIG_EXTS, 'glob');
+        $loader->load($confDir.'/{services}'.self::CONFIG_EXTS, 'glob');
+        $loader->load($confDir.'/{'.$this->environment.'}/**/*'.self::CONFIG_EXTS, 'glob');
     }
 
     private function doConfigureRoutes(RouteCollectionBuilder $routes, string $name = null): void
     {
         $confDir = $this->getProjectDir().'/config/'.$name;
-        if (is_dir($confDir.'/routes/')) {
-            $routes->import($confDir.'/routes/*'.self::CONFIG_EXTS, '/', 'glob');
-        }
-        if (is_dir($confDir.'/routes/'.$this->environment)) {
-            $routes->import($confDir.'/routes/'.$this->environment.'/**/*'.self::CONFIG_EXTS, '/', 'glob');
-        }
-        $routes->import($confDir.'/routes'.self::CONFIG_EXTS, '/', 'glob');
+        $routes->import($confDir.'/{routes}/*'.self::CONFIG_EXTS, '/', 'glob');
+        $routes->import($confDir.'/{routes}/'.$this->environment.'/**/*'.self::CONFIG_EXTS, '/', 'glob');
+        $routes->import($confDir.'/{routes}'.self::CONFIG_EXTS, '/', 'glob');
     }
 }
