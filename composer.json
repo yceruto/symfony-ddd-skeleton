@@ -1,4 +1,6 @@
 {
+    "name": "yceruto/symfony-skeleton-vkernel",
+    "description": "Multi-application skeleton for Symfony 4",
     "type": "project",
     "license": "MIT",
     "require": {
@@ -33,13 +35,13 @@
     "scripts": {
         "auto-scripts": {
             "make cache-warmup": "script",
-            "assets:install --symlink --relative %PUBLIC_DIR%": "symfony-cmd"
+            "assets:install --symlink --relative %PUBLIC_DIR%": "symfony-cmd",
+            "cache:clear": "symfony-cmd"
         }
     },
     "conflict": {
         "symfony/symfony": "*"
     },
-    "minimum-stability": "rc",
     "extra": {
         "symfony": {
             "id": "01BZMG6C8842Y1A8Q3C167TBXK",
