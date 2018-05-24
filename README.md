@@ -48,8 +48,8 @@ This will be the key of the performance as each application has by definition it
     ├── public/
     │   └── index.php
 
-Following the same filosofy of Symfony 4, whereas environment variables decides which development environment and debug mode should be used to run your application, you could use `APP_NAME` environment variable to set the application to execute. 
-For now, you can play with your applications and PHP's built-in Web server prefixing the new application environment variable:
+Following the same filosofy of Symfony 4, whereas environment variables decides which development environment and debug mode should be used to run your application, you can to use a new `APP_NAME` environment variable to set the application to execute. 
+For now, playing with your applications and PHP's built-in Web server prefixing the new application environment variable:
 
     $ APP_NAME=admin php -S 127.0.0.1:8000 -t public
     $ APP_NAME=api php -S 127.0.0.1:8001 -t public   
@@ -63,7 +63,7 @@ Use `--kernel`, `-k` option to run any command for one specific app:
 
     $ bin/console about -k=api
     
-Or if you prefer use environment variables:
+Or if you prefer, use environment variables on CLI:
 
     $ export APP_NAME=api
     $ bin/console about                         # api application
@@ -91,7 +91,7 @@ The `tests` directory is pretty similar to the `src` directory, just update your
 
 Run `composer dump-autoload` to re-generate the autoload config.
     
-Here, you might need create a `<Name>WebTestCase` class per application in order to execute all tests together.
+Here, creates a `<Name>WebTestCase` class per application in order to execute all tests together.
 
 ### Production and vhosts
 
@@ -115,13 +115,13 @@ Set the environment variable `APP_NAME` for each vhost config in your production
  
 ### Adding more applications to the project
 
-With three simple steps you should be able to add new vKernel/applications to the current project:
+Follows these 3 steps to add a new vKernel/App to your Symfony 4 project:
 
  1. Add to `config`, `src` and `tests` directories a new folder with the `<name>` of the application and its content.
  2. Add to `config/<name>/` dir at least the `bundles.php` file.
  3. Add to `composer.json` autoload/autoload-dev sections the new PSR-4 namespaces for `src/<Name>/` and `tests/<Name>` directories and update the autoload config file.
 
-Check the new application running `bin/console about -k=<name>`.
+Check the new application by running `bin/console about -k=<name>`.
 
 License
 -------
