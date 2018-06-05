@@ -16,7 +16,7 @@ if (!isset($_SERVER['APP_ENV'])) {
 
 $env = $_SERVER['APP_ENV'] ?? 'dev';
 $debug = (bool) ($_SERVER['APP_DEBUG'] ?? ('prod' !== $env));
-$app = $_SERVER['APP_NAME'] ?? 'app';
+$name = $_SERVER['APP_NAME'] ?? 'app';
 
 if ($debug) {
     umask(0000);
@@ -32,7 +32,7 @@ if ($trustedHosts = $_SERVER['TRUSTED_HOSTS'] ?? false) {
     Request::setTrustedHosts(explode(',', $trustedHosts));
 }
 
-$kernel = new \VirtualKernel($env, $debug, $app);
+$kernel = new \VirtualKernel($env, $debug, $name);
 $request = Request::createFromGlobals();
 $response = $kernel->handle($request);
 $response->send();
