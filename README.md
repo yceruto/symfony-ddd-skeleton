@@ -123,6 +123,9 @@ Follows these 3 steps to add a new vKernel/App to your Symfony 4 project:
 
 Check the new application by running `bin/console about -k=<name>`.
 
+Note: After install any new package that generates a new configuration file (into the common `config/packages` directory) make sure to move it to the correct sub-config directory if it is not intended to work for all applications.
+Also you should update the `auto-scripts` section in `composer.json` to execute each command in the right application, and it's recommended to have a `"cache:clear -k <name>": "symfony-cmd"` for each application.
+
 License
 -------
 
