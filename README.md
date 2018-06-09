@@ -71,7 +71,7 @@ Or if you prefer, use environment variables on CLI:
     $
     $ APP_NAME=admin bin/console debug:router   # admin application
 
-Also you can configure the default `APP_NAME` environment variable in your `.env` file. 
+Also you can configure the default `APP_NAME` environment variable in your `.env` file or in `bin/console` file.
 
 ### Running tests per application
 
