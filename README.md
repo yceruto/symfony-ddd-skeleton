@@ -61,7 +61,7 @@ For now, playing with your applications and PHP's built-in Web server prefixing 
 
 Use `--kernel`, `-k` option to run any command for one specific app:
 
-    $ bin/console about -k=api
+    $ bin/console about -k api
     
 Or if you prefer, use environment variables on CLI:
 
@@ -115,16 +115,10 @@ Set the environment variable `APP_NAME` for each vhost config in your production
  
 ### Adding more applications to the project
 
-Follows these 3 steps to add a new vKernel/App to your Symfony 4 project:
-
- 1. Add to `config`, `src` and `tests` directories a new folder with the `<name>` of the application and its content.
- 2. Add to `config/<name>/` dir at least the `bundles.php` file.
- 3. Add to `composer.json` autoload/autoload-dev sections the new PSR-4 namespaces for `src/<Name>/` and `tests/<Name>` directories and update the autoload config file.
-
-Check the new application by running `bin/console about -k=<name>`.
+Run `bin/console create-app <name>` to create a new application.
 
 Note: After install any new package that generates a new configuration file (into the common `config/packages` directory) make sure to move it to the correct sub-config directory if it is not intended to work for all applications.
-Also you should update the `auto-scripts` section in `composer.json` to execute each command in the right application, and it's recommended to have a `"cache:clear -k <name>": "symfony-cmd"` for each application.
+Also you should update the `auto-scripts` section in `composer.json` to execute each command with the right kernel option, and it's also recommended to have a script `"cache:clear -k <name>": "symfony-cmd"` for each application.
 
 License
 -------
