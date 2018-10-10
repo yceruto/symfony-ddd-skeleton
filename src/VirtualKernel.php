@@ -2,6 +2,7 @@
 
 use Symfony\Bundle\FrameworkBundle\Kernel\MicroKernelTrait;
 use Symfony\Component\Config\Loader\LoaderInterface;
+use Symfony\Component\Config\Resource\FileResource;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Kernel;
 use Symfony\Component\Routing\RouteCollectionBuilder;
@@ -9,6 +10,8 @@ use Symfony\Component\Routing\RouteCollectionBuilder;
 class VirtualKernel extends Kernel
 {
     use MicroKernelTrait;
+
+    protected $name;
 
     private const CONFIG_EXTS = '.{php,xml,yaml,yml}';
 
@@ -53,9 +56,17 @@ class VirtualKernel extends Kernel
         }
     }
 
+    protected function getContainerClass()
+    {
+        return $this->name.ucfirst($this->environment).($this->debug ? 'Debug' : '').'ProjectContainer';
+    }
+
     protected function configureContainer(ContainerBuilder $container, LoaderInterface $loader): void
     {
         $container->setParameter('container.dumper.inline_class_loader', true);
+
+        $container->addResource(new FileResource($this->getProjectDir().'/config/bundles.php'));
+        $container->addResource(new FileResource($this->getProjectDir().'/config/'.$this->name.'/bundles.php'));
 
         $this->doConfigureContainer($container, $loader);
         $this->doConfigureContainer($container, $loader, $this->name);
@@ -70,6 +81,7 @@ class VirtualKernel extends Kernel
     private function doConfigureContainer(ContainerBuilder $container, LoaderInterface $loader, string $name = null): void
     {
         $confDir = $this->getProjectDir().'/config/'.$name;
+
         $loader->load($confDir.'/{packages}/*'.self::CONFIG_EXTS, 'glob');
         $loader->load($confDir.'/{packages}/'.$this->environment.'/**/*'.self::CONFIG_EXTS, 'glob');
         $loader->load($confDir.'/{services}'.self::CONFIG_EXTS, 'glob');
@@ -79,6 +91,7 @@ class VirtualKernel extends Kernel
     private function doConfigureRoutes(RouteCollectionBuilder $routes, string $name = null): void
     {
         $confDir = $this->getProjectDir().'/config/'.$name;
+
         $routes->import($confDir.'/{routes}/*'.self::CONFIG_EXTS, '/', 'glob');
         $routes->import($confDir.'/{routes}/'.$this->environment.'/**/*'.self::CONFIG_EXTS, '/', 'glob');
         $routes->import($confDir.'/{routes}'.self::CONFIG_EXTS, '/', 'glob');
