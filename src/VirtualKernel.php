@@ -80,7 +80,7 @@ class VirtualKernel extends Kernel
 
     private function doConfigureContainer(ContainerBuilder $container, LoaderInterface $loader, string $name = null): void
     {
-        $confDir = $this->getProjectDir().'/config/'.$name;
+        $confDir = $this->getProjectDir().'/config'.($name ? '/'.$name : '');
 
         $loader->load($confDir.'/{packages}/*'.self::CONFIG_EXTS, 'glob');
         $loader->load($confDir.'/{packages}/'.$this->environment.'/**/*'.self::CONFIG_EXTS, 'glob');
@@ -90,7 +90,7 @@ class VirtualKernel extends Kernel
 
     private function doConfigureRoutes(RouteCollectionBuilder $routes, string $name = null): void
     {
-        $confDir = $this->getProjectDir().'/config/'.$name;
+        $confDir = $this->getProjectDir().'/config'.($name ? '/'.$name : '');
 
         $routes->import($confDir.'/{routes}/*'.self::CONFIG_EXTS, '/', 'glob');
         $routes->import($confDir.'/{routes}/'.$this->environment.'/**/*'.self::CONFIG_EXTS, '/', 'glob');
