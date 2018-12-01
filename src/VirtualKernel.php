@@ -50,7 +50,7 @@ class VirtualKernel extends Kernel
         $kernelBundles = require $this->getProjectDir().'/config/'.$this->name.'/bundles.php';
 
         foreach (array_merge($commonBundles, $kernelBundles) as $class => $envs) {
-            if (isset($envs['all']) || isset($envs[$this->environment])) {
+            if ($envs[$this->environment] ?? $envs['all'] ?? false) {
                 yield new $class();
             }
         }

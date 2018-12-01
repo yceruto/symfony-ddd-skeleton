@@ -11,29 +11,29 @@ use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Component\Debug\Debug;
-use Symfony\Component\Dotenv\Dotenv;
 
 set_time_limit(0);
 
-require __DIR__.'/../vendor/autoload.php';
+require dirname(__DIR__).'/vendor/autoload.php';
 
 if (!class_exists(Application::class)) {
-    throw new \RuntimeException('You need to add "symfony/framework-bundle" as a Composer dependency.');
-}
-
-if (!isset($_SERVER['APP_ENV'])) {
-    if (!class_exists(Dotenv::class)) {
-        throw new \RuntimeException('APP_ENV environment variable is not defined. You need to define environment variables for configuration or add "symfony/dotenv" as a Composer dependency to load variables from a .env file.');
-    }
-    (new Dotenv())->load(__DIR__.'/../.env');
+    throw new RuntimeException('You need to add "symfony/framework-bundle" as a Composer dependency.');
 }
 
 $input = new ArgvInput();
-$env = $input->getParameterOption(['--env', '-e'], $_SERVER['APP_ENV'] ?? 'dev', true);
-$debug = (bool) ($_SERVER['APP_DEBUG'] ?? ('prod' !== $env)) && !$input->hasParameterOption('--no-debug', true);
-$name = $input->getParameterOption(['--kernel', '-k'], $_SERVER['APP_NAME'] ?? 'app');
+if (null !== $_ENV['APP_ENV'] = $input->getParameterOption(['--env', '-e'], null, true)) {
+    putenv('APP_ENV='.$_ENV['APP_ENV']);
+    // force loading .env files when --env is defined
+    $_SERVER['APP_ENV'] = null;
+}
 
-if ($debug) {
+if ($input->hasParameterOption('--no-debug', true)) {
+    putenv('APP_DEBUG='.$_SERVER['APP_DEBUG'] = $_ENV['APP_DEBUG'] = '0');
+}
+
+require dirname(__DIR__).'/config/bootstrap.php';
+
+if ($_SERVER['APP_DEBUG']) {
     umask(0000);
 
     if (class_exists(Debug::class)) {
@@ -41,11 +41,11 @@ if ($debug) {
     }
 }
 
-$kernel = new \VirtualKernel($env, $debug, $name);
+$kernel = new \VirtualKernel($_SERVER['APP_ENV'], (bool) $_SERVER['APP_DEBUG'], $_SERVER['APP_NAME']);
 $application = new Application($kernel);
 $application
     ->getDefinition()
-    ->addOption(new InputOption('--kernel', '-k', InputOption::VALUE_REQUIRED, 'The Kernel name', $name))
+    ->addOption(new InputOption('--kernel', '-k', InputOption::VALUE_REQUIRED, 'The Kernel name', $_SERVER['APP_NAME']))
 ;
 $application->add(new class extends Command {
     protected static $defaultName = 'create-app';
