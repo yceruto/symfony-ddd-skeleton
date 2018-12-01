@@ -26,6 +26,9 @@
             "ref": "9f94d3ea453cd8a3b95db7f82592d7344fe3a76a"
         }
     },
+    "symfony/contracts": {
+        "version": "v1.0.0"
+    },
     "symfony/debug": {
         "version": "v4.0.0-rc1"
     },
@@ -82,6 +85,9 @@
             "version": "4.0",
             "ref": "cda8b550123383d25827705d05a42acf6819fe4e"
         }
+    },
+    "symfony/var-exporter": {
+        "version": "v4.2.0"
     },
     "symfony/yaml": {
         "version": "v4.0.0-rc1"
