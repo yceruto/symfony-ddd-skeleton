@@ -32,6 +32,11 @@ class VirtualKernel extends Kernel
         return $this->getProjectDir().'/var/log/'.$this->name;
     }
 
+    public function getProjectDir()
+    {
+        return \dirname(__DIR__);
+    }
+
     public function serialize()
     {
         return serialize(array($this->environment, $this->debug, $this->name));
