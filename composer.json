@@ -1,17 +1,18 @@
 {
     "type": "project",
-    "license": "MIT",
-    "description": "A minimal Symfony project recommended to create bare bones applications with VirtualKernel",
+    "license": "proprietary",
     "require": {
-        "php": "^7.1.3",
+        "php": "^7.2.5",
         "ext-ctype": "*",
         "ext-iconv": "*",
         "ext-json": "*",
         "symfony/console": "*",
         "symfony/dotenv": "*",
-        "symfony/flex": "^1.1",
+        "symfony/flex": "^1.3.1",
         "symfony/framework-bundle": "*",
         "symfony/yaml": "*"
+    },
+    "require-dev": {
     },
     "config": {
         "preferred-install": {
@@ -36,6 +37,7 @@
         "paragonie/random_compat": "2.*",
         "symfony/polyfill-ctype": "*",
         "symfony/polyfill-iconv": "*",
+        "symfony/polyfill-php72": "*",
         "symfony/polyfill-php71": "*",
         "symfony/polyfill-php70": "*",
         "symfony/polyfill-php56": "*"
@@ -58,7 +60,7 @@
     "extra": {
         "symfony": {
             "allow-contrib": false,
-            "require": "4.3.*"
+            "require": "5.0.*"
         }
     }
 }
