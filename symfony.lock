@@ -5,6 +5,9 @@
     "psr/container": {
         "version": "1.0.0"
     },
+    "psr/event-dispatcher": {
+        "version": "1.0.0"
+    },
     "psr/log": {
         "version": "1.1.0"
     },
@@ -44,6 +47,9 @@
     },
     "symfony/dotenv": {
         "version": "v4.3.0"
+    },
+    "symfony/error-handler": {
+        "version": "v5.0.0"
     },
     "symfony/event-dispatcher": {
         "version": "v4.3.0"
@@ -129,6 +135,9 @@
     },
     "symfony/service-contracts": {
         "version": "v1.1.2"
+    },
+    "symfony/var-dumper": {
+        "version": "v5.0.0"
     },
     "symfony/var-exporter": {
         "version": "v4.3.0"
