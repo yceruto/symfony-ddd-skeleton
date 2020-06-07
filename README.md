@@ -1,4 +1,4 @@
-# Symfony 4 skeleton with Virtual Kernel for multiple applications
+# Symfony 5 skeleton with Virtual Kernel for multiple applications
 
 ### Name-based Virtual Kernel
 
