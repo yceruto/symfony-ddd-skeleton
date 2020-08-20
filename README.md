@@ -41,7 +41,7 @@ This way the `VirtualKernel` will execute individual apps with dedicated config 
  * `<name><Env>DebugProjectContainerUrlGenerator*`
  * `<name><Env>DebugProjectContainerUrlMatcher*`
  
-This is the performance key as each app (by definition) has its own DI container file, routes and configuration, while sharing common things like.
+This is the performance key as each app (by definition) has its own DI container file, routes and configuration, while sharing common things too.
 
 ### Keeping one entry point for all applications
 
