@@ -8,7 +8,7 @@ In short, each kernel name corresponds to one application.
 
 ### Application-based Configuration
 
-The idea is replicate the default project structure for each application, which is represented by a subdirectory with the name of the vertual kernel. It should look like this:
+The idea is to replicate the default project structure for each application, which is represented by a subdirectory with the name of the virtual kernel. It should look like this:
 
     ├── config/
     │   ├── admin/
@@ -35,13 +35,13 @@ The idea is replicate the default project structure for each application, which 
     │   │   └── site/
     │   └── logs/
 
-This way the `VirtualKernel` will execute induvidual apps with dedicated config files (`var/cache/<name>/<env>/*`):
+This way the `VirtualKernel` will execute individual apps with dedicated config files (`var/cache/<name>/<env>/*`):
 
  * `<name><Env>DebugProjectContainer*`
  * `<name><Env>DebugProjectContainerUrlGenerator*`
  * `<name><Env>DebugProjectContainerUrlMatcher*`
  
-This is the performance key as each app (by definition) has its own DI container file, routes and configuration.
+This is the performance key as each app (by definition) has its own DI container file, routes and configuration, while sharing common things like.
 
 ### Keeping one entry point for all applications
 
