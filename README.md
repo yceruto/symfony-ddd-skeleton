@@ -48,7 +48,7 @@ This is the performance key as each app (by definition) has its own DI container
     ├── public/
     │   └── index.php
 
-Following the same filosofy of Symfony 4, whereas environment variables decide which app environment and whether or not debug mode must be used to run your app, you can use the new environment variable `APP_NAME` to specify the app you want to run. Let's playing with it using the PHP's built-in Web server:
+Following the same filosofy of Symfony 4, you can use environment variables to decide the app mode (dev/test/prod) and whether or not debug mode must be enabled, you also can create a new environment variable `APP_NAME` to specify the app you want to run. Let's playing with it using the PHP's built-in Web server:
 
     $ APP_NAME=admin php -S 127.0.0.1:8000 -t public
     $ APP_NAME=api php -S 127.0.0.1:8001 -t public   
