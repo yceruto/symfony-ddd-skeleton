@@ -2,7 +2,7 @@
 
 ### Name-based Virtual Kernel
 
-The term "Virtual Kernel" refers to the practice of running more than one application (such as `api.example.com` and `admin.example.com`) on a single project repository. Virtual kernels are "name-based", meaning that you have multiple kernel names running on the same project. The fact that they are running on the same physical repository is not apparent to the end user.
+The term "Virtual Kernel" refers to the practice of running more than one application (such as `api.example.com` and `admin.example.com`) on a single project repository. Virtual kernels are "name-based", meaning that you have multiple kernel (with diferrent names) running on the same project. The fact that they are running on the same physical repository is not apparent to the end user.
 
 In short, each kernel name corresponds to one application.
 
@@ -35,20 +35,16 @@ The idea is to replicate the default project structure for each application, whi
     │   │   └── site/
     │   └── logs/
 
-This way the `VirtualKernel` will execute individual apps with dedicated config files (`var/cache/<name>/<env>/*`):
+There `admin`, `api` and `site` directories are part of this vkernel approach and they will contain all what is only needed for each app. Whereas `packages/`, `bundles.php` and any other dir/file at root of the `config` will be recognized as global config for all apps.
 
- * `<name><Env>DebugProjectContainer*`
- * `<name><Env>DebugProjectContainerUrlGenerator*`
- * `<name><Env>DebugProjectContainerUrlMatcher*`
- 
-This is the performance key as each app (by definition) has its own DI container file, routes and configuration, while sharing common things too.
+As a performance key, each app (by definition) has its own DI container file, routes and configuration, while sharing common things too like vendors, config and src code.
 
 ### Keeping one entry point for all applications
 
     ├── public/
     │   └── index.php
 
-Following the same filosofy of Symfony 4, you can use environment variables to decide the app mode (dev/test/prod) and whether or not debug mode must be enabled, you also can create a new environment variable `APP_NAME` to specify the app you want to run. Let's playing with it using the PHP's built-in Web server:
+Following the same filosofy as of Symfony 4, as well as you can set environment variables to decide the app mode (dev/test/prod) and whether or not debug mode is enabled you must create a new environment variable `APP_NAME` to specify the app you want to run. Let's playing with it using the PHP's built-in Web server:
 
     $ APP_NAME=admin php -S 127.0.0.1:8000 -t public
     $ APP_NAME=api php -S 127.0.0.1:8001 -t public   
