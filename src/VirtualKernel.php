@@ -43,7 +43,7 @@ class VirtualKernel extends Kernel
 
     protected function getContainerClass()
     {
-        return $this->name.ucfirst($this->environment).($this->debug ? 'Debug' : '').'ProjectContainer';
+        return $this->name.ucfirst($this->environment).($this->debug ? 'Debug' : '').'Container';
     }
 
     protected function configureContainer(ContainerBuilder $container, LoaderInterface $loader): void
