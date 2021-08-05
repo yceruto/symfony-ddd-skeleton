@@ -29,6 +29,11 @@ class Kernel extends BaseKernel
         return ($_SERVER['APP_LOG_DIR'] ?? $this->getProjectDir().'/var/log').'/'.$this->name;
     }
 
+    protected function getContainerClass(): string
+    {
+        return ucfirst($this->name).parent::getContainerClass();
+    }
+
     public function registerBundles(): iterable
     {
         $commonBundles = require $this->getProjectDir().'/config/bundles.php';
