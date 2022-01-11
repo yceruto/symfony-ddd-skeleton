@@ -12,9 +12,9 @@ class Kernel extends BaseKernel
 
     private $name;
 
-    public function __construct(string $environment, bool $debug, string $name)
+    public function __construct(string $environment, bool $debug, string $context)
     {
-        $this->name = $name;
+        $this->name = $context;
 
         parent::__construct($environment, $debug);
     }
