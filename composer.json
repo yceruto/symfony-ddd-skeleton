@@ -1,6 +1,6 @@
 {
-    "name": "yceruto/symfony-multikernel",
-    "description": "A Symfony multi-Kernel demo application",
+    "name": "yceruto/symfony-skeleton",
+    "description": "A Symfony skeleton for DDD approach",
     "type": "project",
     "license": "MIT",
     "require": {
@@ -19,14 +19,19 @@
         "preferred-install": {
             "*": "dist"
         },
-        "sort-packages": true
+        "sort-packages": true,
+        "allow-plugins": {
+            "symfony/flex": true,
+            "symfony/runtime": true
+        }
     },
     "autoload": {
         "classmap": [
             "src/Kernel.php"
         ],
         "psr-4": {
-            "App\\": "src/App/"
+            "App\\": "src/App/",
+            "Shared\\": "src/Shared/"
         }
     },
     "autoload-dev": {

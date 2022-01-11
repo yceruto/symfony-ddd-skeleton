@@ -1,5 +1,9 @@
 # Symfony 5 skeleton with Virtual Kernel for multiple applications
 
+### Installation
+
+    composer create-project 
+
 ### Context-based Virtual Kernel
 
 The term "Virtual Kernel" refers to the practice of running more than one application (such as `api.example.com` and `admin.example.com`) on a single project repository. Virtual kernels are "context-based", meaning that you have multiple kernel (with different context) running on the same project. The fact that they are running on the same physical repository is not apparent to the end user.
@@ -20,11 +24,13 @@ The idea is to replicate the default project structure for each application, whi
     │   ├── api/
     │   ├── site/
     │   ├── packages/
-    │   └── bundles.php
+    │   ├── bundles.php
+    │   └── services.yaml
     ├── src/
     │   ├── Admin/
     │   ├── Api/
     │   ├── Site/
+    │   ├── Shared/
     │   └── Kernel.php
     ├── var/
     │   ├── cache/
