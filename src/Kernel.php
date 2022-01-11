@@ -10,34 +10,34 @@ class Kernel extends BaseKernel
 {
     use MicroKernelTrait;
 
-    private $name;
+    private $context;
 
     public function __construct(string $environment, bool $debug, string $context)
     {
-        $this->name = $context;
+        $this->context = $context;
 
         parent::__construct($environment, $debug);
     }
 
     public function getCacheDir(): string
     {
-        return ($_SERVER['APP_CACHE_DIR'] ?? $this->getProjectDir().'/var/cache').'/'.$this->name.'/'.$this->environment;
+        return ($_SERVER['APP_CACHE_DIR'] ?? $this->getProjectDir().'/var/cache').'/'.$this->context.'/'.$this->environment;
     }
 
     public function getLogDir(): string
     {
-        return ($_SERVER['APP_LOG_DIR'] ?? $this->getProjectDir().'/var/log').'/'.$this->name;
+        return ($_SERVER['APP_LOG_DIR'] ?? $this->getProjectDir().'/var/log').'/'.$this->context;
     }
 
     protected function getContainerClass(): string
     {
-        return ucfirst($this->name).parent::getContainerClass();
+        return ucfirst($this->context).parent::getContainerClass();
     }
 
     public function registerBundles(): iterable
     {
         $commonBundles = require $this->getProjectDir().'/config/bundles.php';
-        $kernelBundles = require $this->getProjectDir().'/config/'.$this->name.'/bundles.php';
+        $kernelBundles = require $this->getProjectDir().'/config/'.$this->context.'/bundles.php';
 
         foreach (array_merge($commonBundles, $kernelBundles) as $class => $envs) {
             if ($envs[$this->environment] ?? $envs['all'] ?? false) {
@@ -48,24 +48,24 @@ class Kernel extends BaseKernel
 
     protected function build(ContainerBuilder $container): void
     {
-        $container->fileExists($this->getProjectDir().'/config/'.$this->name.'/bundles.php');
+        $container->fileExists($this->getProjectDir().'/config/'.$this->context.'/bundles.php');
     }
 
     protected function configureContainer(ContainerConfigurator $container): void
     {
         $this->doConfigureContainer($container);
-        $this->doConfigureContainer($container, $this->name);
+        $this->doConfigureContainer($container, $this->context);
     }
 
     protected function configureRoutes(RoutingConfigurator $routes): void
     {
         $this->doConfigureRoutes($routes);
-        $this->doConfigureRoutes($routes, $this->name);
+        $this->doConfigureRoutes($routes, $this->context);
     }
 
-    private function doConfigureContainer(ContainerConfigurator $container, string $name = null): void
+    private function doConfigureContainer(ContainerConfigurator $container, string $context = null): void
     {
-        $confDir = $this->getProjectDir().'/config'.($name ? '/'.$name : '');
+        $confDir = $this->getProjectDir().'/config'.($context ? '/'.$context : '');
 
         $container->import($confDir.'/{packages}/*.yaml');
         $container->import($confDir.'/{packages}/'.$this->environment.'/*.yaml');
@@ -78,9 +78,9 @@ class Kernel extends BaseKernel
         }
     }
 
-    private function doConfigureRoutes(RoutingConfigurator $routes, string $name = null): void
+    private function doConfigureRoutes(RoutingConfigurator $routes, string $context = null): void
     {
-        $confDir = $this->getProjectDir().'/config'.($name ? '/'.$name : '');
+        $confDir = $this->getProjectDir().'/config'.($context ? '/'.$context : '');
 
         $routes->import($confDir.'/{routes}/'.$this->environment.'/*.yaml');
         $routes->import($confDir.'/{routes}/*.yaml');

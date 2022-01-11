@@ -12,11 +12,11 @@ if (!is_file(dirname(__DIR__).'/vendor/autoload_runtime.php')) {
 require_once dirname(__DIR__).'/vendor/autoload_runtime.php';
 
 return static function (InputInterface $input, array $context) {
-    $kernel = new Kernel($context['APP_ENV'], (bool) $context['APP_DEBUG'], $input->getParameterOption(['--kernel', '-k'], $context['APP_NAME']));
+    $kernel = new Kernel($context['APP_ENV'], (bool) $context['APP_DEBUG'], $input->getParameterOption(['--kernel', '-k'], $context['APP_CONTEXT']));
 
     $application = new Application($kernel);
     $application->getDefinition()
-        ->addOption(new InputOption('--kernel', '-k', InputOption::VALUE_REQUIRED, 'The Kernel name', $context['APP_NAME']))
+        ->addOption(new InputOption('--kernel', '-k', InputOption::VALUE_REQUIRED, 'The Kernel name', $context['APP_CONTEXT']))
     ;
 
     return $application;
