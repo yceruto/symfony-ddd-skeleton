@@ -14,6 +14,9 @@
         "symfony/runtime": "*",
         "symfony/yaml": "5.*"
     },
+    "require-dev": {
+        "yceruto/ddd-maker-bundle": "^1.0"
+    },
     "config": {
         "optimize-autoloader": true,
         "preferred-install": {
