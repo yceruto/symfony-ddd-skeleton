@@ -116,7 +116,7 @@ Set the environment variable `APP_CONTEXT` for each vhost config in your product
  
 ### Adding more applications to the project
 
-Run `bin/console new-app <CONTEXT>` to create a new application.
+Run `bin/console make:app-context <CONTEXT>` to create a new application context skeleton.
 
 Note: After install any new package that generate a new configuration file (into the common `config/packages` directory) make sure to move it to the correct sub-app directory if it is not intended to work for all applications.
 Also, you should update the `auto-scripts` section in `composer.json` to execute each command with the right kernel option, and it's also recommended having the script `"cache:clear -k <CONTEXT>": "symfony-cmd"` for each app.
