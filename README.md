@@ -2,7 +2,7 @@
 
 ### Installation
 
-    composer create-project 
+    composer create-project yceruto/symfony-skeleton ddd
 
 ### Context-based Virtual Kernel
 
