@@ -55,6 +55,60 @@ Following the same philosophy since Symfony 4, as well as you can set environmen
     $ APP_CONTEXT=admin php -S 127.0.0.1:8000 -t public
     $ APP_CONTEXT=api php -S 127.0.0.1:8001 -t public   
 
+### Use Symfony local webserver
+
+You will need to use [Symfony local server](https://symfony.com/doc/current/setup/symfony_server.html) and its [proxy](https://symfony.com/doc/current/setup/symfony_server.html#setting-up-the-local-proxy).
+
+First, start Symfony proxy by doing `symfony proxy:start` in the project folder.
+
+Then, create a [symlink](https://en.wikipedia.org/wiki/Symbolic_link) pointing to your project folder for each of your applications. You can keep them in a folder in your project or outside it, as you prefer.
+
+    ├── applications/
+    │   ├── admin
+    |   ├── api
+    |   └── site
+    ├── config/
+    ├── src/
+    └── var/
+
+Next, you'll need to configure each local server and start it. To do so, you will use the created symlinks, like so:
+
+```
+# start admin local server
+APP_CONTEXT=admin symfony proxy:domain:attach admin --dir=[project folder path]/applications/admin
+APP_CONTEXT=admin symfony server:start --dir=[project folder path]/applications/admin
+
+# start api local server
+APP_CONTEXT=api symfony proxy:domain:attach api --dir=[project folder path]/applications/api
+APP_CONTEXT=api symfony server:start --dir=[project folder path]/applications/api
+
+# start site local server
+APP_CONTEXT=site symfony proxy:domain:attach site --dir=[project folder path]/applications/site
+APP_CONTEXT=site symfony server:start --dir=[project folder path]/applications/site
+```
+
+To check if each server is running, you can go to [localhost:7080](http://localhost:7080).
+
+### Production and vhosts
+
+Set the environment variable `APP_CONTEXT` for each vhost config in your production server and development machine if preferred:
+
+    <VirtualHost admin.company.com:80>
+        # ...
+        
+        SetEnv APP_CONTEXT admin
+        
+        # ...
+    </VirtualHost>
+
+    <VirtualHost api.company.com:80>
+        # ...
+        
+        SetEnv APP_CONTEXT api
+        
+        # ...
+    </VirtualHost>
+
 ### Executing commands per application
 
     ├── bin/
@@ -63,7 +117,7 @@ Following the same philosophy since Symfony 4, as well as you can set environmen
 Use `--kernel`, `-k` option to run any command for one specific app:
 
     $ bin/console about -k api
-    
+
 Or if you prefer, use environment variables on CLI:
 
     $ export APP_CONTEXT=api
@@ -91,29 +145,9 @@ The `tests` directory is pretty similar to `src` directory, just update your `co
     },
 
 Run `composer dump-autoload` to re-generate the autoload config.
-    
+
 Here, creates a `<CONTEXT>WebTestCase` class per app in order to execute all tests together.
 
-### Production and vhosts
-
-Set the environment variable `APP_CONTEXT` for each vhost config in your production server and development machine if preferred:
-
-    <VirtualHost admin.company.com:80>
-        # ...
-        
-        SetEnv APP_CONTEXT admin
-        
-        # ...
-    </VirtualHost>
-
-    <VirtualHost api.company.com:80>
-        # ...
-        
-        SetEnv APP_CONTEXT api
-        
-        # ...
-    </VirtualHost>
- 
 ### Adding more applications to the project
 
 Run `bin/console make:app-context <CONTEXT>` to create a new application context skeleton.
