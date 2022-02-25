@@ -153,17 +153,18 @@ Also, you can configure the default `APP_CONTEXT` environment variable in your `
 ### Running tests per application
 
     ├── tests/
-    │   ├── Admin/
-    │   │   └── AdminWebTestCase.php
-    │   ├── Api/
+    │   └── context/
+    │       ├── admin
+    │       │   └── AdminWebTestCase.php
+    │       └── api/
 
-The `tests` directory is pretty similar to `src` directory, just update your `composer.json` and map each directory 
-`tests/<CONTEXT>/` with its PSR-4 namespace:
+The `tests` directory will contain the `context/` directory and replicate its structure, just update your `composer.json` 
+and map each directory `tests/context/<CONTEXT>/` with its PSR-4 namespace:
 
     "autoload-dev": {
         "psr-4": {
-            "Admin\\Tests\\": "tests/Admin/",
-            "Api\\Tests\\": "tests/Api/"
+            "Admin\\Tests\\": "tests/context/admin/",
+            "Api\\Tests\\": "tests/context/api/"
         }
     },
 
@@ -173,7 +174,7 @@ Here, creates a `<CONTEXT>WebTestCase` class per app in order to execute all tes
 
 ### Adding more applications to the project
 
-Run `bin/console make:app-context <CONTEXT>` to create a new application context skeleton.
+Run `bin/console make:ddd:context <CONTEXT>` to create a new Kernel context skeleton.
 
 Note: After install any new package that generate a new configuration file (into the common `config/packages` directory) 
 make sure to move it to the correct sub-app directory if it is not intended to work for all applications. Also, you should 
