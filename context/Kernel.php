@@ -37,7 +37,7 @@ class Kernel extends BaseKernel
     public function registerBundles(): iterable
     {
         $commonBundles = require $this->getProjectDir().'/config/bundles.php';
-        $kernelBundles = require $this->getProjectDir().'/config/'.$this->context.'/bundles.php';
+        $kernelBundles = require $this->getProjectDir().'/context/'.$this->context.'/config/bundles.php';
 
         foreach (array_merge($commonBundles, $kernelBundles) as $class => $envs) {
             if ($envs[$this->environment] ?? $envs['all'] ?? false) {
@@ -48,7 +48,7 @@ class Kernel extends BaseKernel
 
     protected function build(ContainerBuilder $container): void
     {
-        $container->fileExists($this->getProjectDir().'/config/'.$this->context.'/bundles.php');
+        $container->fileExists($this->getProjectDir().'/context'.$this->context.'/config/bundles.php');
     }
 
     protected function configureContainer(ContainerConfigurator $container): void
@@ -65,7 +65,7 @@ class Kernel extends BaseKernel
 
     private function doConfigureContainer(ContainerConfigurator $container, string $context = null): void
     {
-        $confDir = $this->getProjectDir().'/config'.($context ? '/'.$context : '');
+        $confDir = $this->getProjectDir().($context ? '/context/'.$context : '').'/config';
 
         $container->import($confDir.'/{packages}/*.yaml');
         $container->import($confDir.'/{packages}/'.$this->environment.'/*.yaml');
@@ -80,7 +80,7 @@ class Kernel extends BaseKernel
 
     private function doConfigureRoutes(RoutingConfigurator $routes, string $context = null): void
     {
-        $confDir = $this->getProjectDir().'/config'.($context ? '/'.$context : '');
+        $confDir = $this->getProjectDir().($context ? '/context/'.$context : '').'/config';
 
         $routes->import($confDir.'/{routes}/'.$this->environment.'/*.yaml');
         $routes->import($confDir.'/{routes}/*.yaml');

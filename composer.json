@@ -30,16 +30,16 @@
     },
     "autoload": {
         "classmap": [
-            "src/Kernel.php"
+            "context/Kernel.php"
         ],
         "psr-4": {
-            "App\\": "src/App/",
-            "Shared\\": "src/Shared/"
+            "App\\": "context/app/src/",
+            "Core\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "App\\Tests\\": "tests/App/"
+            "App\\Tests\\": "tests/context/app/"
         }
     },
     "replace": {
