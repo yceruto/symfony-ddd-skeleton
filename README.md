@@ -1,4 +1,4 @@
-# Symfony 5 project skeleton for multiple applications
+# Symfony 6 project skeleton for multiple applications
 
 This project skeleton is built for [Domain-Driven Design](https://en.wikipedia.org/wiki/Domain-driven_design) approach
 and [Hexagonal Architecture](https://en.wikipedia.org/wiki/Hexagonal_architecture_(software)). It is also applicable to [microservice](https://en.wikipedia.org/wiki/Microservices) architecture.
