@@ -15,9 +15,6 @@ services:
     # this creates a service per class whose id is the fully-qualified class name
     Core\:
         resource: '../src/'
-        exclude:
-            - '../src/Module/SubModule/Domain/'
-            - '../src/Shared/Domain/'
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
