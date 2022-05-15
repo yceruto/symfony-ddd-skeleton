@@ -2663,24 +2663,25 @@
         },
         {
             "name": "yceruto/ddd-maker-bundle",
-            "version": "v1.1.0",
+            "version": "v1.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/yceruto/ddd-maker-bundle.git",
-                "reference": "c26a2ed43b78ccb1e86b3f22514c9ab0528ade3b"
+                "reference": "312e0b8294ae4bee430f4e07ae40dde6008ac238"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yceruto/ddd-maker-bundle/zipball/c26a2ed43b78ccb1e86b3f22514c9ab0528ade3b",
-                "reference": "c26a2ed43b78ccb1e86b3f22514c9ab0528ade3b",
+                "url": "https://api.github.com/repos/yceruto/ddd-maker-bundle/zipball/312e0b8294ae4bee430f4e07ae40dde6008ac238",
+                "reference": "312e0b8294ae4bee430f4e07ae40dde6008ac238",
                 "shasum": ""
             },
             "require": {
                 "ext-json": "*",
-                "php": ">=7.2",
+                "php": ">=7.4",
                 "symfony/console": "^5.4|^6.0",
                 "symfony/framework-bundle": "^5.4|^6.0",
-                "symfony/maker-bundle": "^1.36"
+                "symfony/maker-bundle": "^1.36",
+                "yceruto/micro-symfony": "^1.1"
             },
             "type": "symfony-bundle",
             "autoload": {
@@ -2702,9 +2703,55 @@
             "homepage": "https://github.com/yceruto/ddd-maker-bundle",
             "support": {
                 "issues": "https://github.com/yceruto/ddd-maker-bundle/issues",
-                "source": "https://github.com/yceruto/ddd-maker-bundle/tree/v1.1.0"
+                "source": "https://github.com/yceruto/ddd-maker-bundle/tree/v1.3.0"
             },
-            "time": "2022-02-25T21:37:20+00:00"
+            "time": "2022-05-15T17:30:05+00:00"
+        },
+        {
+            "name": "yceruto/micro-symfony",
+            "version": "v1.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/yceruto/micro-symfony.git",
+                "reference": "03073523ff776e8e763661b588661e7d949d93b5"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/yceruto/micro-symfony/zipball/03073523ff776e8e763661b588661e7d949d93b5",
+                "reference": "03073523ff776e8e763661b588661e7d949d93b5",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.4",
+                "symfony/config": "^5.4||^6.0",
+                "symfony/dependency-injection": "^5.4||^6.0",
+                "symfony/http-kernel": "^5.4||^6.0"
+            },
+            "require-dev": {
+                "symfony/phpunit-bridge": "^6.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "MicroSymfony\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Yonel Ceruto",
+                    "email": "yonelceruto@gmail.com"
+                }
+            ],
+            "description": "Micro-Symfony Tools",
+            "support": {
+                "issues": "https://github.com/yceruto/micro-symfony/issues",
+                "source": "https://github.com/yceruto/micro-symfony/tree/v1.1.0"
+            },
+            "time": "2022-05-15T17:19:20+00:00"
         }
     ],
     "aliases": [],

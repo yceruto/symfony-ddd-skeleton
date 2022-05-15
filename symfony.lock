@@ -153,5 +153,8 @@
     },
     "yceruto/ddd-maker-bundle": {
         "version": "v1.0"
+    },
+    "yceruto/micro-symfony": {
+        "version": "v1.1.0"
     }
 }
