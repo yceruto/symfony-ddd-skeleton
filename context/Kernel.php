@@ -10,7 +10,7 @@ class Kernel extends BaseKernel
 {
     use MicroKernelTrait;
 
-    private $context;
+    private string $context;
 
     public function __construct(string $environment, bool $debug, string $context)
     {
