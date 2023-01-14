@@ -1,7 +1,10 @@
-# Symfony 6 project skeleton for multiple applications
+# Symfony Multi-Application Project Skeleton
 
-This project skeleton is built for [Domain-Driven Design](https://en.wikipedia.org/wiki/Domain-driven_design) approach
-and [Hexagonal Architecture](https://en.wikipedia.org/wiki/Hexagonal_architecture_(software)). It is also applicable to [microservice](https://en.wikipedia.org/wiki/Microservices) architecture.
+Organize and Manage Multiple Applications with Kernel Contexts.
+
+This project skeleton is designed to implement the [Domain-Driven Design](https://en.wikipedia.org/wiki/Domain-driven_design) (DDD) 
+and [Hexagonal Architecture](https://en.wikipedia.org/wiki/Hexagonal_architecture_(software)) patterns. It is also well-suited 
+for use in a [microservice](https://en.wikipedia.org/wiki/Microservices) architecture.
 
 ### Installation
 
@@ -9,16 +12,21 @@ and [Hexagonal Architecture](https://en.wikipedia.org/wiki/Hexagonal_architectur
 
 ### Context-based Kernel
 
-The term refers to the practice of running (at the same time) more than one application with different contexts
-(such as `api.example.com` and `admin.example.com`) on a single project repository. The fact that they are running on the
-same physical repository is not apparent to the end user.
+A context-based kernel in Symfony refers to a custom implementation of the Kernel class that allows for running multiple 
+applications, each with its own context (such as `api.example.com` and `admin.example.com`), within a single project repository. 
+The different contexts are transparent to the end-user, but enable a clear separation of concerns and organization of 
+the codebase. 
 
-In short, each kernel context corresponds to one application.
+Each context corresponds to a separate and distinct entrypoint (site, api or admin), each with its own set of dedicated 
+routes and configurations. Despite this separation, common code, such as dependencies and business logic, are shared among 
+all contexts. The kernel uses the request's context to determine the appropriate entrypoint to handle the request, ensuring 
+that the correct routes and configurations are used for each context.
 
 ### Context-based Configuration
 
-The project structure contains a new `context/` directory where the config and presentation subjects are placed per kernel context,
-and the `src/` directory hosts the core functionalities divided by modules:
+The project structure includes a new `context/` directory where the configuration and presentation-related files are organized 
+according to the kernel context. The `src/` directory contains the core functionality of the application, divided into modules for 
+better organization and management.
 
     ├── config/
     │   ├── packages/
@@ -57,33 +65,38 @@ and the `src/` directory hosts the core functionalities divided by modules:
     │   │   └── site/
     │   └── logs/
 
-There `admin`, `api` and `site` directories are part of this kernel context approach, and they will contain all what is 
-only needed for each context. Whereas `packages/`, `bundles.php` and any other dir/file at root of the `config` will be 
-recognized as global config for all contexts.
+The project structure includes subdirectories such as admin, api, and site as part of the kernel context approach. These 
+directories contain all files and configurations that are specific to each context. In contrast, files and directories such 
+as `packages/`, `bundles.php`, and any others located at the root of the `config/` directory are recognized as global configuration 
+for all contexts.
 
-As a performance key, each app (by definition) has its own DI container file, routes and configuration, while sharing 
-common things too like `vendor`, `config` and `src` code.
+To optimize performance, each app, as defined by the kernel context, has its own Dependency Injection container file, routing 
+configuration, and specific settings. However, common elements such as the `vendor/`, `config/`, and `src/` code are shared among 
+all the contexts. This approach allows for efficient resource management and organization of the codebase.
 
 ### Keeping one entry point for all applications
 
     ├── public/
     │   └── index.php
 
-Following the same philosophy since Symfony 4, as well as you can set environment variables to decide the app mode 
-(dev/test/prod) and whether debug mode is enabled you must create a new environment variable `APP_CONTEXT` to specify 
-the kernel context you want to run. Lets playing with it using the PHP's built-in Web server:
+In line with Symfony 4's philosophy, environment variables can be used to determine the app's mode (dev/test/prod) and 
+whether debug mode is enabled. Additionally, a new environment variable called `APP_CONTEXT` must be created to specify 
+the kernel context that should be run. This can be easily tested using PHP's built-in web server by setting the environment 
+variable before starting the server:
 
     $ APP_CONTEXT=admin php -S 127.0.0.1:8000 -t public
     $ APP_CONTEXT=api php -S 127.0.0.1:8001 -t public   
 
 ### Use Symfony local webserver
 
-You will need to use [Symfony local server](https://symfony.com/doc/current/setup/symfony_server.html) and its [proxy](https://symfony.com/doc/current/setup/symfony_server.html#setting-up-the-local-proxy).
+To run multiple kernel contexts, you will need to use the [Symfony local server](https://symfony.com/doc/current/setup/symfony_server.html) and 
+its [proxy](https://symfony.com/doc/current/setup/symfony_server.html#setting-up-the-local-proxy) functionality.
 
-First, start Symfony proxy by doing `symfony proxy:start` in the project folder.
+First, start the Symfony proxy by running the command `symfony proxy:start` in the project folder.
 
-Then, create a [symlink](https://en.wikipedia.org/wiki/Symbolic_link) pointing to your project folder for each of your 
-applications. You can keep them in a folder in your project or outside it, as you prefer.
+Next, create a symbolic link ([symlink](https://en.wikipedia.org/wiki/Symbolic_link)) for each of your applications that 
+points to your project folder. These symbolic links can be stored in a folder within your project or outside of it, depending 
+on your preference.
 
     ├── links/
     │   ├── admin
@@ -93,7 +106,8 @@ applications. You can keep them in a folder in your project or outside it, as yo
     ├── src/
     └── var/
 
-Next, you'll need to configure each local server and start it. To do so, you will use the created symlinks, like so:
+After creating the symbolic links, you will need to configure each local server and start it. This is done by using the 
+symbolic links created earlier. For example, you might run a command such as:
 
 ```
 # start admin local server
@@ -109,11 +123,13 @@ APP_CONTEXT=site symfony proxy:domain:attach site --dir=[project folder path]/li
 APP_CONTEXT=site symfony server:start --dir=[project folder path]/links/site
 ```
 
-To check if each server is running, you can go to [localhost:7080](http://localhost:7080).
+To verify that each server is running, you can navigate to the appropriate URL in your web browser [localhost:7080](http://localhost:7080).
 
 ### Production and vhosts
 
-Set the environment variable `APP_CONTEXT` for each vhost config in your production server and development machine if preferred:
+In order to run multiple kernel contexts in a production environment or development environment, you will need to set the 
+environment variable `APP_CONTEXT` for each virtual host configuration. This can be done by modifying the appropriate 
+configuration files on your production server or development machine, depending on your preference:
 
     <VirtualHost admin.company.com:80>
         # ...
@@ -148,7 +164,8 @@ Or if you prefer, use environment variables on CLI:
     $
     $ APP_CONTEXT=admin bin/console debug:router   # admin application
 
-Also, you can configure the default `APP_CONTEXT` environment variable in your `.env` file or in `bin/console`.
+Additionally, you can set the default `APP_CONTEXT` environment variable in your `.env` file or by modifying the `bin/console` file. 
+This allows you to specify the default kernel context that will be used if the environment variable is not set or overridden elsewhere.
 
 ### Running tests per application
 
@@ -158,8 +175,9 @@ Also, you can configure the default `APP_CONTEXT` environment variable in your `
     │       │   └── AdminWebTestCase.php
     │       └── api/
 
-The `tests` directory will contain the `context/` directory and replicate its structure, just update your `composer.json` 
-and map each directory `tests/context/<CONTEXT>/` with its PSR-4 namespace:
+The `tests/` directory will include a `context/` directory that mirrors the structure of the `context/` directory in the main codebase. 
+To use this structure in your tests, you will need to update your `composer.json` file to map each directory within `tests/context/<CONTEXT>/`
+to its corresponding PSR-4 namespace. This allows you to test each kernel context separately.
 
     "autoload-dev": {
         "psr-4": {
@@ -170,16 +188,19 @@ and map each directory `tests/context/<CONTEXT>/` with its PSR-4 namespace:
 
 Run `composer dump-autoload` to re-generate the autoload config.
 
-Here, creates a `<CONTEXT>WebTestCase` class per app in order to execute all tests together.
+To run all the tests for a specific kernel context, create a separate `<CONTEXT>WebTestCase` class for each app. 
+This allows you to execute all the tests together and test each kernel context independently.
 
 ### Adding more applications to the project
 
-Run `bin/console make:ddd:context <CONTEXT>` to create a new Kernel context skeleton.
+To create a new kernel context skeleton, run the command `bin/console make:ddd:context <CONTEXT>` in the terminal. This will 
+generate the necessary files and directories for the new kernel context, allowing you to easily add new functionality to 
+your application.
 
-Note: After install any new package that generate a new configuration file (into the common `config/packages` directory) 
-make sure to move it to the correct sub-app directory if it is not intended to work for all applications. Also, you should 
-update the `auto-scripts` section in `composer.json` to execute each command with the right kernel option, and it's also 
-recommended having the script `"cache:clear -k <CONTEXT>": "symfony-cmd"` for each app.
+When installing new packages that generate new configuration files, it is important to move them to the correct sub-application 
+directory if they are not intended to work for all applications. Additionally, you should update the `auto-scripts` section 
+in `composer.json` to execute each command with the correct kernel option. To ensure that the cache is cleared for each individual 
+application, it is recommended to include the script `"cache:clear -k <CONTEXT>": "symfony-cmd"` for each app in your `composer.json` file.
 
 License
 -------
