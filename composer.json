@@ -1,21 +1,18 @@
 {
     "name": "yceruto/symfony-skeleton",
-    "description": "A Symfony skeleton for DDD approach",
+    "description": "A Symfony skeleton for multiple applications.",
     "type": "project",
     "license": "MIT",
     "require": {
-        "php": ">=8.0.2",
+        "php": ">=8.2",
         "ext-ctype": "*",
         "ext-iconv": "*",
-        "symfony/console": "6.*",
-        "symfony/dotenv": "6.*",
-        "symfony/flex": "^1.17",
-        "symfony/framework-bundle": "6.*",
-        "symfony/runtime": "6.*",
-        "symfony/yaml": "6.*"
-    },
-    "require-dev": {
-        "yceruto/ddd-maker-bundle": "^1.1"
+        "symfony/console": "^7.0",
+        "symfony/dotenv": "^7.0",
+        "symfony/flex": "^2.4",
+        "symfony/framework-bundle": "^7.0",
+        "symfony/runtime": "^7.0",
+        "symfony/yaml": "^7.0"
     },
     "config": {
         "optimize-autoloader": true,
@@ -60,13 +57,11 @@
         ]
     },
     "conflict": {
-        "symfony/symfony": "*",
-        "yceruto/ddd-maker-bundle": "<1.1"
+        "symfony/symfony": "*"
     },
     "extra": {
         "symfony": {
-            "allow-contrib": false,
-            "require": "6.0.*"
+            "allow-contrib": false
         }
     }
 }

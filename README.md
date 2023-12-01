@@ -193,6 +193,10 @@ This allows you to execute all the tests together and test each kernel context i
 
 ### Adding more applications to the project
 
+Install this bundle in your project:
+
+    $ composer require yceruto/ddd-maker-bundle --dev
+
 To create a new kernel context skeleton, run the command `bin/console make:ddd:context <CONTEXT>` in the terminal. This will 
 generate the necessary files and directories for the new kernel context, allowing you to easily add new functionality to 
 your application.
