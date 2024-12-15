@@ -63,7 +63,7 @@ class Kernel extends BaseKernel
         $this->doConfigureRoutes($routes, $this->context);
     }
 
-    private function doConfigureContainer(ContainerConfigurator $container, string $context = null): void
+    private function doConfigureContainer(ContainerConfigurator $container, ?string $context = null): void
     {
         $confDir = $this->getProjectDir().($context ? '/context/'.$context : '').'/config';
 
@@ -78,7 +78,7 @@ class Kernel extends BaseKernel
         }
     }
 
-    private function doConfigureRoutes(RoutingConfigurator $routes, string $context = null): void
+    private function doConfigureRoutes(RoutingConfigurator $routes, ?string $context = null): void
     {
         $confDir = $this->getProjectDir().($context ? '/context/'.$context : '').'/config';
 

@@ -7,12 +7,12 @@
         "php": ">=8.2",
         "ext-ctype": "*",
         "ext-iconv": "*",
-        "symfony/console": "^7.0",
-        "symfony/dotenv": "^7.0",
+        "symfony/console": "7.2.*",
+        "symfony/dotenv": "7.2.*",
         "symfony/flex": "^2.4",
-        "symfony/framework-bundle": "^7.0",
-        "symfony/runtime": "^7.0",
-        "symfony/yaml": "^7.0"
+        "symfony/framework-bundle": "7.2.*",
+        "symfony/runtime": "7.2.*",
+        "symfony/yaml": "7.2.*"
     },
     "config": {
         "optimize-autoloader": true,
