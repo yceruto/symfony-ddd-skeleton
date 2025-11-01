@@ -48,7 +48,7 @@ class Kernel extends BaseKernel
 
     protected function build(ContainerBuilder $container): void
     {
-        $container->fileExists($this->getProjectDir().'/context'.$this->context.'/config/bundles.php');
+        $container->fileExists($this->getProjectDir().'/context/'.$this->context.'/config/bundles.php');
     }
 
     protected function configureContainer(ContainerConfigurator $container): void
