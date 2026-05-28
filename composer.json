@@ -12,7 +12,7 @@
         "symfony/flex": "^2.4",
         "symfony/framework-bundle": "7.2.*",
         "symfony/runtime": "7.2.*",
-        "symfony/yaml": "7.2.*"
+        "symfony/yaml": "7.4.*"
     },
     "config": {
         "optimize-autoloader": true,
